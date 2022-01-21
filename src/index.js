@@ -55,7 +55,11 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             xIsNext: true,
+            currentPlayer: 'X'
         }
+    }
+    setCurrentPlayer(xIsNext) {
+        return xIsNext ? 'X' : 'O'
     }
     handleClick(i) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -70,7 +74,8 @@ class Game extends React.Component {
                 squares: squares,
             }]),
             stepNumber: history.length,
-            xIsNext: !this.state.xIsNext
+            xIsNext: !this.state.xIsNext,
+            currentPlayer: this.setCurrentPlayer(this.state.xIsNext),
         });
     }
     jumpTo(step) {
@@ -98,7 +103,7 @@ class Game extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner;
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? "X" : "O");
+            status = 'Next player: ' + (this.setCurrentPlayer(this.state.xIsNext));
         }
         return (
             <div className="game">
